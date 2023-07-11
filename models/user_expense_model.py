@@ -1,11 +1,7 @@
 import enum
 
+from app.enums.user_expense_type import UserExpenseType
 from . import *
-
-
-class UserExpenseType(enum.Enum):
-    PAID = 1
-    HAD_TO_PAY = 2
 
 
 class UserExpenseModel(Base):

@@ -5,8 +5,8 @@ import click
 from flask import Flask
 from flask.cli import with_appcontext
 
-from controllers import user_controller, group_controller
-from commands.commands import Commands
+from app.controllers import user_controller, group_controller, expense_controller
+from app.commands.commands import Commands
 
 app = Flask(__name__)
 
@@ -96,14 +96,24 @@ def show_groups(user_id):
 @click.option("--payees")
 @click.option("--split_type")
 @click.option("--desc")
-def add_expense(user_id, payed_type, payers, payees, split_type, desc):
+@click.option("--amount")
+def add_expense(user_id, payed_type, split_type, payees, desc, amount, payers=None):
     """
     A Flask command to add expenses
     """
-    pass
+    result = expense_controller.add_expense(user_id=user_id,
+                                            payed_type=payed_type,
+                                            split_type=split_type,
+                                            desc=desc,
+                                            amount=amount,
+                                            payers=payers,
+                                            payees=payees)
+    print(result)
+
 
 app.cli.add_command(create_user)
 app.cli.add_command(update_user)
 app.cli.add_command(create_group)
 app.cli.add_command(add_member)
 app.cli.add_command(show_groups)
+app.cli.add_command(add_expense)

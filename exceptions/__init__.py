@@ -78,9 +78,63 @@ class ExactSplitMisMatchException(Exception):
 
 class EqualSplitException(Exception):
     """
-    Raised when an equal split calculator has issues users belonging to the expnse.
+    Raised when an equal split calculator has issues users belonging to the expense.
     """
     err_msg = 'No users to share the split error!'
+    err_status = 400
+
+    def __init__(self, err_msg: str = None, err_status: int = None):
+        self.err_msg = err_msg
+        self.err_status = err_status
+
+
+class PercentageSplitException(Exception):
+    """
+    Raised when sum of all percentage is not equal to zero
+    """
+    err_msg = 'Percentages share is not equal to the total amount entered'
+    err_status = 400
+
+    def __init__(self, err_msg: str = None, err_status: int = None):
+        self.err_msg = err_msg
+        self.err_status = err_status
+
+
+class InvalidInputFormatException(Exception):
+    """
+    Raised when an input is not given properly.
+    """
+    err_msg = 'Input format is not correct!'
+    err_status = 400
+
+    def __init__(self, err_msg: str = None, err_status: int = None):
+        self.err_msg = err_msg
+        self.err_status = err_status
+
+
+class DuplicateUserException(Exception):
+    """
+    Raised when a user is repeated multiple types in the Payees option.
+    """
+    err_msg = "User share is repeated more than once!"
+    err_statsu = 400
+
+    def __init__(self, err_msg: str = None, err_status: int = None):
+        self.err_msg = err_msg
+        self.err_status = err_status
+
+
+class UsersNotBelongToGroup(Exception):
+    err_msg = "One or more users not belong to the group!"
+    err_statsu = 400
+
+    def __init__(self, err_msg: str = None, err_status: int = None):
+        self.err_msg = err_msg
+        self.err_status = err_status
+
+
+class ExpenseException(Exception):
+    err_msg = "Expense creator must be part of payees and payers"
     err_status = 400
 
     def __init__(self, err_msg: str = None, err_status: int = None):

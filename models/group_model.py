@@ -8,6 +8,7 @@ class GroupModel(Base):
     name = Column(String(20), nullable=False)
     description = Column(String(100), nullable=True)
     created_by = Column(Integer, ForeignKey('users.id'), nullable=False)
+    members = relationship('UserModel', uselist=True, secondary='user_group_mappings', lazy='joined')
     created_at = Column(DateTime(timezone=True), default=func.now())
     last_modified_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
 

@@ -1,7 +1,7 @@
-from exceptions import GroupDoesNotExist, UnauthorizedAccessException, UserNotFoundException
-from models.group_model import GroupModel
-from models.user_model import UserModel
-from models.user_group_mapping_model import UserGroupMappingModel
+from app.exceptions import GroupDoesNotExist, UnauthorizedAccessException, UserNotFoundException
+from app.models.group_model import GroupModel
+from app.models.user_model import UserModel
+from app.models.user_group_mapping_model import UserGroupMappingModel
 
 
 class GroupView:

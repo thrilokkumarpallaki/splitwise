@@ -3,17 +3,9 @@ User database logic
 """
 
 from __future__ import annotations
-import enum
 
+from app.enums.user_status_type import UserStatusType
 from . import *
-
-
-class UserStatus(enum.Enum):
-    """
-    An enum class for User status
-    """
-    ACTIVE = 0
-    INVITED = 1
 
 
 class UserModel(Base):
@@ -26,8 +18,9 @@ class UserModel(Base):
     name = Column(String(30), nullable=False)
     phone = Column(String(10), nullable=False, unique=True)
     password = Column(String(60), nullable=True)
-    status = Column(Enum(UserStatus), default=UserStatus.INVITED)
-    groups = relationship('GroupModel', backref="members", lazy='joined')
+    status = Column(Enum(UserStatusType), default=UserStatusType.INVITED)
+    groups = relationship('GroupModel', back_populates="members", uselist=True,
+                          secondary='user_group_mappings', lazy='joined')
     created_at = Column(DateTime(timezone=True), default=func.now())
     last_modified_at = Column(DateTime(timezone=True), default=func.now(), onupdate=func.now())
 

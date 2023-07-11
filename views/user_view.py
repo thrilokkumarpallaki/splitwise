@@ -1,7 +1,7 @@
 """
 User business logic
 """
-from app.models.user_model import UserModel, UserStatus
+from app.models.user_model import UserModel, UserStatusType
 from app.exceptions import UserCreationException, UserNotFoundException
 from app.utilities.helpers import encrypt_password
 
@@ -31,11 +31,11 @@ class UserView:
             # User exist
             user_obj.name = name
             user_obj.password = password
-            user_obj.status = UserStatus.ACTIVE
+            user_obj.status = UserStatusType.ACTIVE
         else:
             encrypted_password = encrypt_password(password)
             # Create user
-            user_obj = UserModel(name=name, phone=phone, password=encrypted_password, status=UserStatus.ACTIVE)
+            user_obj = UserModel(name=name, phone=phone, password=encrypted_password, status=UserStatusType.ACTIVE)
         create_status = user_obj.save()
 
         if not create_status:
